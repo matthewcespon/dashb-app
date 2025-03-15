@@ -1,7 +1,6 @@
 "use client"
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar"
-import NavBar from "@/components/navbar";
 import { useTheme } from 'next-themes';
 
 export default function DashboardLayout({
@@ -17,6 +16,7 @@ export default function DashboardLayout({
         <div className="flex">
           <AppSidebar />
           <main className="flex-grow p-6">
+            <SidebarTrigger />
             {children}
           </main>
         </div>
