@@ -1,6 +1,6 @@
 .container {
   --uib-size: 28;
-  --uib-color: black;
+  --uib-color: green;
   --uib-speed: 3.5s;
   --uib-stroke: 4;
   --uib-mult: calc(var(--uib-size) / var(--uib-stroke));
