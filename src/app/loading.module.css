@@ -1,8 +1,8 @@
 .container {
-  --uib-size: 28;
-  --uib-color: green;
+  --uib-size: 35;
+  --uib-color: lime;
   --uib-speed: 3.5s;
-  --uib-stroke: 4;
+  --uib-stroke: 4.5;
   --uib-mult: calc(var(--uib-size) / var(--uib-stroke));
   --uib-stroke-px: calc(var(--uib-stroke) * 1px);
   --uib-size-px: calc(var(--uib-size) * 1px);
