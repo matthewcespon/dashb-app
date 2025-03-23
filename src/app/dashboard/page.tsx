@@ -8,7 +8,7 @@ export default function Dashboard() {
   useEffect(() => {
     const token = process.env.NEXT_PUBLIC_TEMPTOKEN
     
-    Cookies.set('token', token, { path: '/' });
+    Cookies.set('token', token as any, { path: '/' });
     console.log('Token set in cookie:', token);
     
     
