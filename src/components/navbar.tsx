@@ -2,25 +2,30 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ModeToggle from "./ui/toggle-theme";
+import { cn } from "@/lib/utils";
 
 interface NavBarProps {
   visible?: "logo";
+  className?: string;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ visible }) => {
+const NavBar: React.FC<NavBarProps> = ({ visible, className }) => {
   if (visible === "logo") {
     return (
-      <nav className="container mx-auto px-4 py-6">
-        <div className="flex items-center">
-          <Image
-            src="/logo.png?height=50&width=50"
-            width={40}
-            height={40}
-            alt="Logo"
-            className="mr-4"
-          />
-        </div>
-      </nav>
+      <div className={cn(className)}>
+
+        <nav className="container mx-auto px-4 py-6">
+          <div className="flex items-center">
+            <Image
+              src="/logo.png?height=50&width=50"
+              width={40}
+              height={40}
+              alt="Logo"
+              className="mr-4"
+            />
+          </div>
+        </nav>
+      </div>
     );
   }
 

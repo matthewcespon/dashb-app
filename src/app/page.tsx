@@ -5,6 +5,8 @@ import NavBar from '@/components/navbar'
 import Footer from '@/components/footer';
 
 export default function LandingPage() {
+  
+  const token = false
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-800 to-neutral-950">
       {/* Navigation bar with logo */}
@@ -21,7 +23,7 @@ export default function LandingPage() {
         {/* Action Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-16 pt-[10vh]">
           <Link
-            href="/dashboard"
+            href={token ? "/dashboard" : "/auth/login"}
             className="inline-flex items-center px-6 py-3 rounded-lg bg-neutral-800/50 text-neutral-200 hover:bg-neutral-700/50 transition-all backdrop-blur-sm border border-neutral-700/30"
           >
             <ArrowUpRight className="mr-2 h-5 w-5" />
