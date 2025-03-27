@@ -12,7 +12,6 @@ const loginSchema = z.object({
 
 export async function login(prevState: any, formData: FormData) {
   const formValues = Object.fromEntries(formData);
-  console.log("Form data received:", { email: formValues.email, passwordLength: formValues.password?.length });
   
   const result = loginSchema.safeParse(formValues)
   if(!result.success) {
