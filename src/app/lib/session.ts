@@ -7,7 +7,7 @@ const secretKey = process.env.NEXT_PUBILC_JWT_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function getSession() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   
   if (!token) return null;
