@@ -1,36 +1,35 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useActionState, useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { MoonIcon, SunIcon } from "lucide-react"
+import Cookies from 'js-cookie';
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTheme } from 'next-themes';
+import { useFormStatus } from "react-dom"
+import { login } from "@/app/auth/login/actions"
 
 export default function LoginPage() {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-
-    // Simulate login - replace with actual authentication logic
-    setTimeout(() => {
-      setIsLoading(false)
-      // Redirect to dashboard after successful login
-      router.push("/dashboard")
-    }, 1000)
-  }
+  const [state, loginAction] = useActionState(login, undefined)
+  
+  useEffect(() => {
+    console.log("checking for cookie");
+    if (state && state._id) {
+      console.log("Login successful, redirecting...");
+      const hasCookie = !!Cookies.get('token');
+      console.log("Cookie present:", hasCookie);
+      
+      router.push('/dashboard');
+    }
+  }, [state, router]);
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
@@ -49,19 +48,28 @@ export default function LoginPage() {
           </div>
           <CardDescription>Enter your credentials to access your account</CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
+        <form action={loginAction}>
           <CardContent className="space-y-4">
+            {state?.error && (
+              <div className="p-3 bg-destructive/15 text-destructive text-sm rounded-md">
+                {state.error}
+              </div>
+            )}
+            
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
               />
             </div>
+
+            {state?.errors?.email && (
+                <p className="text-red-500 text-sm">{state.errors.email}</p>
+            )}
+
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
@@ -69,21 +77,21 @@ export default function LoginPage() {
                   Forgot password?
                 </Link>
               </div>
-            <div className="pb-10">
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="pb-10">
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                />
               </div>
+
+              {state?.errors?.password && (
+                  <p className="text-red-500 text-sm">{state.errors.password}</p>
+              )}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Logging in..." : "Login"}
-            </Button>
+            <SubmitButton />
             <div className="text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link href="/auth/register" className="text-primary underline underline-offset-4">
@@ -97,3 +105,12 @@ export default function LoginPage() {
   )
 }
 
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? "Logging in..." : "Login"}
+    </Button>
+  )
+}
