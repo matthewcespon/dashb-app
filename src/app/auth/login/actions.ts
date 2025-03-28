@@ -11,6 +11,8 @@ const loginSchema = z.object({
 
 
 export async function login(prevState: any, formData: FormData) {
+
+  console.log("Current NODE_ENV:", process.env.NODE_ENV);
   const formValues = Object.fromEntries(formData);
   
   const result = loginSchema.safeParse(formValues)
@@ -34,6 +36,19 @@ export async function login(prevState: any, formData: FormData) {
     });
 
     const responseData = await response.json();
+
+    if (responseData && responseData.token) {
+      // Client-side fallback when cookies fail to set
+      try {
+        Cookies.set('token', responseData.token, {
+          expires: 30,
+          secure: process.env.NODE_ENV === 'production'
+        });
+        console.log("Token set client-side as fallback");
+      } catch (err) {
+        console.error("Failed to set client-side token:", err);
+      }
+    }
     console.log("API response status:", response.status);
     
     if (!response.ok) {
