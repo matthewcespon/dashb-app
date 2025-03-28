@@ -27,7 +27,9 @@ export default function LoginPage() {
       const hasCookie = !!Cookies.get('token');
       console.log("Cookie present:", hasCookie);
       
-      router.push('/dashboard');
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 100);
     }
   }, [state, router]);
 
