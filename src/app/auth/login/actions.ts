@@ -1,6 +1,7 @@
 "use client"
 
 import { z } from "zod"
+import Cookies from 'js-cookie'
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).trim(),
