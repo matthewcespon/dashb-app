@@ -1,3 +1,4 @@
+"use client"
 import { ReportsTable } from "@/components/reports-table";
 import { getReports } from "@/app/actions/reports";
 

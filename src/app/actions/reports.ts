@@ -1,4 +1,4 @@
-"use server"
+"use client"
 
 import { cookies } from "next/headers";
 import { Report } from "@/app/dashboard/reports";
