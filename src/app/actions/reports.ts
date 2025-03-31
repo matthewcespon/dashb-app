@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { Report } from "@/app/dashboard/reports";
 
-export async function getReports(): Promise<Report[]> {
+export async function getReports(): Promise<any> {
   try {
     // Get the token from cookies server-side
     const cookieStore = cookies();
