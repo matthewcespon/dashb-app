@@ -4,16 +4,17 @@ import { Report } from "@/app/dashboard/reports";
 export async function getReports(): Promise<any> {
   try {
     const cookieStore = cookies();
-    const token = cookieStore.get("token")?.value;
-
+    const token = (await cookieStore).get("token")?.value;
+    
     if (!token) {
       console.error("No authentication token found in cookies");
       return [];
     }
-
+    
     const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/api/reports`;
     console.log("Fetching reports from:", apiUrl);
-
+    
+    // Include the token in the Authorization header
     const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
@@ -22,11 +23,11 @@ export async function getReports(): Promise<any> {
       },
       cache: 'no-store'
     });
-
+    
     if (!response.ok) {
       throw new Error(`Error fetching reports: ${response.status}`);
     }
-
+    
     const data = await response.json();
     return data as Report[];
   } catch (error) {
