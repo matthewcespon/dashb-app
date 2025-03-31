@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTheme } from 'next-themes';
 import { useFormStatus } from "react-dom"
-import { login } from "@/app/auth/login/actions"
+import { login } from "@/app/auth/actions"
 
 export default function LoginPage() {
   const router = useRouter()
