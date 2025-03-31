@@ -5,7 +5,6 @@ import { Report } from "@/app/dashboard/reports";
 
 export async function getReports(): Promise<any> {
   try {
-    // Get the token from cookies server-side
     const cookieStore = cookies();
     const token = (await cookieStore).get("token")?.value;
     
@@ -22,10 +21,8 @@ export async function getReports(): Promise<any> {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': `token=${token}`,
         'Authorization': `Bearer ${token}`
       },
-      credentials: 'include',
       cache: 'no-store'
     });
     
