@@ -34,7 +34,7 @@ export default function LoginPage() {
   }, [state, router]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-gradient-to-b from-neutral-400 to-neutral-600">
+    <div className="flex min-h-screen items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-between">
