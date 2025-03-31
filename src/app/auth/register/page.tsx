@@ -93,7 +93,7 @@ export default function SignupPage() {
             </Button>
             <div className="text-center text-sm">
               Already have an account?{" "}
-              <Link href="/login" className="text-primary underline underline-offset-4">
+              <Link href="/auth/login" className="text-primary underline underline-offset-4">
                 Login
               </Link>
             </div>
