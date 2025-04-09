@@ -6,14 +6,6 @@ import { Button } from '@/components/ui/button';
 
 export default function Dashboard() {
 
-  useEffect(() => {
-    const token = process.env.NEXT_PUBLIC_TEMPTOKEN
-    
-    Cookies.set('token', token as any, { path: '/' });
-    console.log('Token set in cookie:', token);
-    
-    
-  }, []);
   const fetchData = async () => {
     const apiUrl = `${process.env.NEXT_PUBLIC_API_HOST}/api/reports`;
     const response = await fetch(apiUrl, {
